@@ -1,0 +1,36 @@
+{
+  "name": "macsvgo",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.macsvgo.app",
+    "productName": "MacSVGO",
+    "mac": {
+      "icon": "resources/icon.icns",
+      "target": "dmg",
+      "category": "public.app-category.developer-tools"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "resources/**/*",
+      "node_modules/**/*"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "macOS SVG optimizer using SVGO",
+  "devDependencies": {
+    "electron": "^40.4.1",
+    "electron-builder": "^26.7.0"
+  },
+  "dependencies": {
+    "svgo": "^4.0.0"
+  }
+}

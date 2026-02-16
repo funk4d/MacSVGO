@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline';">
+  <title>MacSVGO</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="titlebar-spacer">
+    <button id="btn-settings" class="settings-toggle" title="Settings">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="app">
+    <div id="drop-zone" class="drop-zone">
+      <div class="drop-zone-content">
+        <svg class="drop-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <p class="drop-text">Drop SVG files here</p>
+        <span class="drop-separator">or</span>
+        <button id="btn-folder" class="btn">Choose Folder</button>
+      </div>
+    </div>
+
+    <div id="results" class="results hidden">
+      <div class="results-header">
+        <h2 id="results-title"></h2>
+        <button id="btn-reset" class="btn btn-small">New batch</button>
+      </div>
+      <div id="results-list" class="results-list"></div>
+      <div id="results-summary" class="results-summary"></div>
+    </div>
+
+    <div id="processing" class="processing hidden">
+      <div class="spinner"></div>
+      <p>Optimizing...</p>
+    </div>
+  </div>
+
+  <div id="settings-panel" class="settings-panel">
+    <div class="settings-header">
+      <h2>Settings</h2>
+      <button id="btn-settings-close" class="settings-close">&times;</button>
+    </div>
+    <div class="settings-body">
+      <section class="settings-section">
+        <h3>General</h3>
+        <label class="setting-toggle">
+          <input type="checkbox" name="multipass" checked>
+          <span>Multipass</span>
+        </label>
+        <label class="setting-range">
+          <span class="range-label">Number precision</span>
+          <input type="range" name="floatPrecision" min="0" max="8" step="1" value="3">
+          <span class="range-value" data-for="floatPrecision">3</span>
+        </label>
+        <label class="setting-range">
+          <span class="range-label">Transform precision</span>
+          <input type="range" name="transformPrecision" min="0" max="8" step="1" value="5">
+          <span class="range-value" data-for="transformPrecision">5</span>
+        </label>
+      </section>
+
+      <section class="settings-section">
+        <h3>Features</h3>
+        <label class="setting-toggle"><input type="checkbox" name="removeDoctype" checked><span>Remove doctype</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeXMLProcInst" checked><span>Remove XML instructions</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeComments" checked><span>Remove comments</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeMetadata" checked><span>Remove &lt;metadata&gt;</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeXMLNS"><span>Remove xmlns</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeEditorsNSData" checked><span>Remove editor data</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="cleanupAttrs" checked><span>Clean up attribute whitespace</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="mergeStyles" checked><span>Merge styles</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="inlineStyles" checked><span>Inline styles</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="minifyStyles" checked><span>Minify styles</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="convertStyleToAttrs"><span>Style to attributes</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="cleanupIds" checked><span>Clean up IDs</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeRasterImages"><span>Remove raster images</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeUselessDefs" checked><span>Remove unused defs</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="cleanupNumericValues" checked><span>Round/rewrite numbers</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="cleanupListOfValues"><span>Round/rewrite number lists</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="convertColors" checked><span>Minify colours</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeUnknownsAndDefaults" checked><span>Remove unknowns &amp; defaults</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeNonInheritableGroupAttrs" checked><span>Remove unneeded group attrs</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeUselessStrokeAndFill" checked><span>Remove useless stroke &amp; fill</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeViewBox"><span>Remove viewBox</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="cleanupEnableBackground" checked><span>Remove/tidy enable-background</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeHiddenElems" checked><span>Remove hidden elements</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeEmptyText" checked><span>Remove empty text</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="convertShapeToPath" checked><span>Shapes to (smaller) paths</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="moveElemsAttrsToGroup" checked><span>Move attrs to parent group</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="moveGroupAttrsToElems" checked><span>Move group attrs to elements</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="collapseGroups" checked><span>Collapse useless groups</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="convertPathData" checked><span>Round/rewrite paths</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="convertEllipseToCircle" checked><span>Convert &lt;ellipse&gt; to &lt;circle&gt;</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="convertTransform" checked><span>Round/rewrite transforms</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeEmptyAttrs" checked><span>Remove empty attrs</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeEmptyContainers" checked><span>Remove empty containers</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="mergePaths" checked><span>Merge paths</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeUnusedNS" checked><span>Remove unused namespaces</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="reusePaths"><span>Replace duplicate elements with links</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="sortAttrs" checked><span>Sort attrs</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="sortDefsChildren" checked><span>Sort children of &lt;defs&gt;</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeTitle"><span>Remove &lt;title&gt;</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeDesc" checked><span>Remove &lt;desc&gt;</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeDimensions"><span>Prefer viewBox to width/height</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeStyleElement"><span>Remove style elements</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeScripts"><span>Remove scripts</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeOffCanvasPaths"><span>Remove out-of-bounds paths</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="convertOneStopGradients"><span>Convert one-stop gradients to solid colours</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeDeprecatedAttrs" checked><span>Remove deprecated attributes</span></label>
+        <label class="setting-toggle"><input type="checkbox" name="removeXlink"><span>Replace xlink with native SVG</span></label>
+      </section>
+
+      <button id="btn-reset-settings" class="btn btn-small" style="margin-top: 12px; width: 100%;">Reset all</button>
+    </div>
+  </div>
+  <div id="settings-overlay" class="settings-overlay"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
