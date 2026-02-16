@@ -60,4 +60,4 @@ Produces `dist/MacSVGO-1.0.0-arm64.dmg`.
 
 ## Credits
 
-Powered by [SVGO](https://github.com/svg/svgo). Settings panel inspired by [SVGOMG](https://github.com/nicolo-ribaudo/svgomg).
+Powered by [SVGO](https://github.com/svg/svgo). Settings panel inspired by [SVGOMG](https://github.com/jakearchibald/svgomg).
