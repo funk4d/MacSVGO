@@ -66,5 +66,5 @@ Powered by [SVGO](https://github.com/svg/svgo). Settings panel inspired by [SVGO
 
 If MacSVGO saves you time, you can support its development on Ko-fi:
 
-[![Support on Ko-fi](https://img.shields.io/badge/Support%20on-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/dmytroshevchuk)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X0Z520U88Y)
 
