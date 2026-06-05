@@ -61,3 +61,10 @@ Produces `dist/MacSVGO-1.0.0-arm64.dmg`.
 ## Credits
 
 Powered by [SVGO](https://github.com/svg/svgo). Settings panel inspired by [SVGOMG](https://github.com/jakearchibald/svgomg).
+
+## Support
+
+If MacSVGO saves you time, you can support its development on Ko-fi:
+
+[![Support on Ko-fi](https://img.shields.io/badge/Support%20on-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/dmytroshevchuk)
+
